@@ -1,0 +1,83 @@
+body, html {
+  background: #cfe7ff;
+}
+
+#settings {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.list {
+  display: flex;
+}
+
+.list [data-type="title"] {
+  min-width: 0;
+  flex-basis: 25%;
+  padding: 0.5rem;
+}
+
+.list textarea {
+  height: 4em;
+  min-width: 0;
+  flex-basis: 55%;
+  resize: none;
+  padding: 0.2rem;
+}
+
+.list [data-type="values"] {
+  min-width: 0;
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.list button {
+  flex-basis: 10%;
+  text-transform: uppercase;
+}
+
+#submit {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+.result {
+  display: flex;
+}
+
+.result * {
+  background: white;
+  margin: 0;
+}
+
+.result .result-title {
+  flex-basis: 25%;
+  padding: .5rem;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.result .result-list {
+  flex-basis: 55%;
+  border: 1px solid gray;
+  padding: .2rem;
+  resize: none;
+}
+
+.result [data-type="values"] {
+  min-width: 0;
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.result button {
+  flex-basis: 10%;
+}

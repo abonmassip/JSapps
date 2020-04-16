@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Datasets</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="settings">
+    <div id="settings_input">
+      Input Lists:
+      <button data-action="remove" data-type="input">&lt</button>
+      <span class="input_qty">1</span>
+      <button data-action="add" data-type="input">&gt</button>
+    </div>
+    <div id="settings_search">
+      Reference Lists:
+      <button data-action="remove" data-type="reference">&lt</button>
+      <span class="reference_qty">1</span>
+      <button data-action="add" data-type="reference">&gt</button>
+    </div>
+  </div>
+  <h3>Input dataset</h3>
+  <div id="inputs">
+  </div>
+  <h3>Reference dataset</h3>
+  <div id="references">
+  </div>
+  <div id="submit">
+    <button>Submit data</button>
+  </div>
+  <div id="results">
+    <h3>Matches:</h3>
+    <div id="matches">
+    </div>
+    <h3>Common Finds:</h3>
+    <div id="commons">
+    </div>
+  </div>
+  <script src="compareDatasets.js"></script>
+</body>
+
+</html>
