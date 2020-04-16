@@ -70,6 +70,8 @@ button {
   border: 1px solid gray;
   padding: .2rem;
   resize: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
 }
 
 .result [data-type="values"] {
