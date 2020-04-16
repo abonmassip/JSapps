@@ -2,7 +2,7 @@
 
 
 
-- [Etch a Sketch](https://abonmassip.github.io/JSapps/EtchASketch/index.html)
-- [JavaScript Drum Kit](https://abonmassip.github.io/JSapps/JSdrumKit/index.html)
+- [Etch a Sketch](https://abonmassip.github.io/JSapps/EtchASketch/)
+- [JavaScript Drum Kit](https://abonmassip.github.io/JSapps/JSdrumKit/)
 
-- [Compare Data Sets](https://abonmassip.github.io/JSapps/compareDatasets/index.html)
+- [Compare Data Sets](https://abonmassip.github.io/JSapps/compareDatasets/)
