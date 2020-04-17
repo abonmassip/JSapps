@@ -23,8 +23,8 @@ const data = {
 // https://rest.ensembl.org/xrefs/id/ENSG00000153310?external_db=HGNC;content-type=application/json
 // https://rest.ensembl.org/documentation/info/xref_id
 // grab result from dbname: "HGNC", grab property "display_id"
-// TODO copy all, separat matches and common finds. cada resultat en una fila amb titol davan
-
+// boto clear results
+// copy number in individual an all matches: title,count,list
 
 function resetData() {
   data.inputs = [];
@@ -124,7 +124,7 @@ function handleInput(e) {
   if(parent === 'inputs' || parent === 'references') {
     const title = e.currentTarget.querySelector('[data-type="title"]');
     const list = e.currentTarget.querySelector('textarea');
-    const listLength = removeDuplicates(list.value.split(/\r?\n/g).filter(item => !!item)).length;
+    const listLength = removeDuplicates(list.value.split(/\r?\n/g).map(item => item.toLowerCase()).filter(item => !!item)).length;
     const count = e.currentTarget.querySelector('[data-type="values"]');
     list.value ? count.value = listLength : count.value = "";
     if(e.target.dataset.type === 'clear' && e.type === 'click') {
