@@ -9,36 +9,46 @@
 </head>
 
 <body>
+  <div id="shortcuts">
+    <p><span class="hl">CTRL+ENTER</span> = submit / <span class="hl">CTRL+UP CTRL+DOWN</span>
+      (inside an input) =
+      add/remove dataset</p>
+  </div>
   <div id="settings">
     <div id="settings_input">
       Input Lists:
-      <button data-action="remove" data-type="input">&lt</button>
+      <button data-action="remove" data-type="input" tabindex="-1">-</button>
       <span class="input_qty">1</span>
-      <button data-action="add" data-type="input">&gt</button>
+      <button data-action="add" data-type="input" tabindex="-1">+</button>
     </div>
     <div id="settings_search">
       Reference Lists:
-      <button data-action="remove" data-type="reference">&lt</button>
+      <button data-action="remove" data-type="reference" tabindex="-1">-</button>
       <span class="reference_qty">1</span>
-      <button data-action="add" data-type="reference">&gt</button>
+      <button data-action="add" data-type="reference" tabindex="-1">+</button>
     </div>
   </div>
-  <h3>Input dataset</h3>
-  <div id="inputs">
-  </div>
-  <h3>Reference dataset</h3>
-  <div id="references">
-  </div>
-  <div id="submit">
-    <button>Submit data</button>
-  </div>
-  <div id="results">
-    <h3>Matches:</h3>
-    <div id="matches">
+  <div id="content">
+    <h3>Input dataset</h3>
+    <div id="inputs">
     </div>
-    <h3>Common Finds:</h3>
-    <div id="commons">
+    <h3>Reference dataset</h3>
+    <div id="references">
     </div>
+    <div id="submit">
+      <button>Submit data</button>
+    </div>
+    <div id="results">
+      <h3>Matches:</h3>
+      <div id="matches">
+      </div>
+      <h3>Common Finds:</h3>
+      <div id="commons">
+      </div>
+    </div>
+    <!-- <div class="testwrap">
+      <textarea class="test" name="" id="" cols="30" rows="10"></textarea>
+    </div> -->
   </div>
   <script src="compareDatasets.js"></script>
 </body>

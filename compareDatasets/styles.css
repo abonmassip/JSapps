@@ -1,10 +1,42 @@
 body, html {
-  background: #cfe7ff;
+  background: #c2c9d6;
+  margin: 0;
+  font-family: monospace;
+}
+
+#shortcuts {
+  background: rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  padding: .4rem;
+  box-shadow: 3px 8px 6px -6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
+}
+
+#shortcuts p {
+  margin: 0;
+}
+
+#shortcuts .hl {
+  font-weight: bold;
 }
 
 #settings {
   display: flex;
   justify-content: space-evenly;
+  font-size: 1.1rem;
+}
+
+#settings button {
+  border-radius: 100px;
+  /* border: none; */
+  width: 30px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#content {
+  margin: 2rem;
 }
 
 .list {
@@ -18,11 +50,14 @@ body, html {
 }
 
 .list textarea {
-  height: 4em;
+  margin: 0;
+  height: 4rem;
   min-width: 0;
   flex-basis: 55%;
   resize: none;
-  padding: 0.2rem;
+  padding: 0.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
 }
 
 .list [data-type="values"] {
@@ -42,8 +77,19 @@ body, html {
   padding: 1rem;
 }
 
+#submit button {
+  height: 3rem;
+  width: 150px;
+  border-radius: 100px;
+}
+
 button {
   cursor: pointer;
+  transition: .2s background-color;
+}
+
+button:hover {
+  background-color: rgb(194, 203, 218);
 }
 
 .result {
@@ -71,7 +117,7 @@ button {
   padding: .2rem;
   resize: none;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .result [data-type="values"] {
@@ -82,4 +128,17 @@ button {
 
 .result button {
   flex-basis: 10%;
+}
+
+.testwrap {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+.test {
+  background: rgb(54, 54, 54);
+  color: rgb(255, 208, 0);
+  width: 50%;
+  padding: 2rem;
+  font-family: monospace;
 }
