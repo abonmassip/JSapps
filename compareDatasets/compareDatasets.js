@@ -66,6 +66,7 @@ function addList(type) {
   group.appendChild(newList);
   newList.addEventListener('keyup', handleInput);
   newList.addEventListener('click', handleInput);
+  newList.firstElementChild.focus();
   updateLists();
 }
 
