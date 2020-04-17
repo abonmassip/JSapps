@@ -104,8 +104,23 @@ function handleShortcuts(e) {
   }
 }
 
+function copyResult(element, parent, targetType) {
+  const title = element.querySelector('.result-title').textContent;
+  const list = element.querySelector('.result-list').textContent;
+  let clipboard;
+  if(parent === 'matches') {
+    clipboard = `${title}\n${list.split(',').join(`\n`)}`;
+  }
+  if(targetType === 'result-all' || parent === 'commons') {
+    clipboard = list.split(`\n`).map(item => `${title},${item}`).join(`\n`);
+  }
+  return clipboard;
+}
+
+
 function handleInput(e) {
   const parent = e.currentTarget.parentElement.id;
+  const targetType = e.target.dataset.type;
   if(parent === 'inputs' || parent === 'references') {
     const title = e.currentTarget.querySelector('[data-type="title"]');
     const list = e.currentTarget.querySelector('textarea');
@@ -118,20 +133,17 @@ function handleInput(e) {
       count.value = '';
     }
   }
-   
-  if(parent === 'matches') {
-    if(e.target.dataset.type === 'result') {
-      const title = e.currentTarget.querySelector('.result-title').textContent;
-      const list = e.currentTarget.querySelector('.result-list').textContent.split(',').join(`\n`);
-      copyToClipboard(`${title}\n${list}`);
+  
+  if(parent === 'matches' || parent === 'commons') {
+    if(targetType === 'result') {
+      clipboard = copyResult(e.currentTarget, parent, targetType);
+      copyToClipboard(clipboard);
     }
-  }
-  if(parent === 'commons') {
-    if(e.target.dataset.type === 'result') {
-      const title = e.currentTarget.querySelector('.result-title').textContent;
-      const list = e.currentTarget.querySelector('.result-list').textContent.split(`\n`);
-      const newList = list.map(item => `${title},${item}`).join(`\n`);
-      copyToClipboard(newList);
+    if(targetType === 'result-all') {
+      const allMatches = document.querySelectorAll(`#${parent} .result`);
+      const clipboard = [];
+      allMatches.forEach(match => clipboard.push(copyResult(match, parent, targetType)));
+      copyToClipboard(clipboard.join(`\n`));
     }
   }
 }
@@ -204,7 +216,7 @@ function populateResults() {
     const totalNum = data.inputs.find(ref => ref.title === matchTitle[0]).list.length;
     const newResult = document.createElement('div');
     newResult.classList.add('result');
-    const resultHTML = `<p class="result-title"><strong>${matchTitle[0]}</strong>&nbsp in &nbsp<strong>${matchTitle[1]}</strong></p><textarea class="result-list" name="list">${matchList}</textarea><input data-type="values" type="text" value="${matchList.length} of ${totalNum}" readonly><button data-type="result">COPY</button>`;
+    const resultHTML = `<p class="result-title"><strong>${matchTitle[0]}</strong><span>&nbspin&nbsp</span><strong>${matchTitle[1]}</strong></p><textarea class="result-list" name="list">${matchList}</textarea><input data-type="values" type="text" value="${matchList.length} of ${totalNum}" readonly><button data-type="result">COPY</button>`;
     newResult.innerHTML = resultHTML;
     matchesEl.appendChild(newResult);
     newResult.addEventListener('click', handleInput);
@@ -218,25 +230,22 @@ function populateResults() {
       const listLine = `<p><strong>${listTitle}</strong>,${list.join(',')}</p>`;
       listHTML.push(listLine);
     })
-    const resultHTML = `<p class="result-title">common finds in ${commonTitle}</p><div class="result-list">${listHTML.join(`\n`)}</div><input data-type="values" type="text" value="${listHTML.length}" readonly><button data-type="result">COPY</button>`;
+    const resultHTML = `<p class="result-title">common finds in <strong>${commonTitle}</strong></p><div class="result-list">${listHTML.join(`\n`)}</div><input data-type="values" type="text" value="${listHTML.length}" readonly><button data-type="result">COPY</button>`;
     newResult.innerHTML = resultHTML;
     commonsEl.appendChild(newResult);
     newResult.addEventListener('click', handleInput);
   });
-}
 
-function testData() {
-  const test = document.querySelector('.test');
-  test.textContent = "";
-  test.textContent = JSON.stringify(data, null, 1);
-  test.style.height = 'inherit';
-  var computed = window.getComputedStyle(test);
-  var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
-	             + parseInt(computed.getPropertyValue('padding-top'), 10)
-	             + test.scrollHeight
-	             + parseInt(computed.getPropertyValue('padding-bottom'), 10)
-	             + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
-  test.style.height = height + 'px';
+  [matchesEl, commonsEl].forEach(el => {
+    if(el.children.length) {
+      const newDiv = document.createElement('div');
+      newDiv.classList.add('copy-results');
+      const copyButton =`<button data-type="result-all">Copy all</button>`
+      newDiv.innerHTML = copyButton;
+      newDiv.addEventListener('click', handleInput)
+      el.appendChild(newDiv);
+    }
+  })
 }
 
 function handleSubmit() {
@@ -256,12 +265,10 @@ function handleSubmit() {
   populateResults();
 
   matchesEl.scrollIntoView({behavior: 'smooth'});
-
-  // testData();
 }
 
 function resetResults() {
-  const resultsList = document.querySelectorAll('#results .result');
+  const resultsList = document.querySelectorAll('#results .result, .copy-results');
   resultsList.forEach(item => {
     item.removeEventListener('click', handleInput);
     item.remove();
