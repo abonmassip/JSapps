@@ -5,6 +5,7 @@ const referenceCount = settingsEl.querySelector('.reference_qty');
 const inputGroup = document.querySelector('#inputs');
 const referenceGroup = document.querySelector('#references');
 const submitButton = document.querySelector('#submit button');
+const clearButton = document.querySelector('#clear-results button');
 const matchesEl = document.querySelector('#matches');
 const commonsEl = document.querySelector('#commons');
 
@@ -165,7 +166,7 @@ function setDataFromInputs(element) {
 }
 
 function checkDuplicateTitles() {
-  const titles = [...document.querySelectorAll('[data-type="title"]')].map(el => el.value.toLowerCase());
+  const titles = [...document.querySelectorAll('[data-type="title"]')].filter(item => !!item.value).map(el => el.value.toLowerCase());
   return titles.some((item, i, arr) => arr.indexOf(item) !== i);
 }
 
@@ -279,6 +280,7 @@ function resetResults() {
 
 settingButtons.forEach(button => button.addEventListener('click', setLists));
 submitButton.addEventListener('click', handleSubmit);
+clearButton.addEventListener('click', resetResults);
 window.addEventListener('keydown', handleShortcuts);
 
 addList('input');

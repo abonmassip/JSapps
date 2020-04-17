@@ -83,6 +83,19 @@ body, html {
   border-radius: 100px;
 }
 
+#clear-results {
+  display: flex;
+  justify-content: center;
+}
+
+#clear-results button {
+  text-transform: uppercase;
+  font-size: 11px;
+  height: 2rem;
+  width: 120px;
+  border-radius: 100px;
+}
+
 button {
   cursor: pointer;
   transition: .2s background-color;
