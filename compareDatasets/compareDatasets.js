@@ -24,7 +24,6 @@ const data = {
 // https://rest.ensembl.org/xrefs/id/ENSG00000153310?external_db=HGNC;content-type=application/json
 // https://rest.ensembl.org/documentation/info/xref_id
 // grab result from dbname: "HGNC", grab property "display_id"
-// boto clear results
 // copy number in individual an all matches: title,count,list
 
 function resetData() {
@@ -76,6 +75,7 @@ function removeList(type) {
   if(group.children.length > 1){
     group.lastChild.remove();
   };
+  group.lastChild.firstElementChild.focus();
   updateLists();
 }
 
@@ -109,13 +109,25 @@ function handleShortcuts(e) {
 function copyResult(element, parent, targetType) {
   const title = element.querySelector('.result-title').textContent;
   const list = element.querySelector('.result-list').textContent;
+  const count = element.querySelector('[data-type="values"]').value;
   let clipboard;
-  if(parent === 'matches') {
-    clipboard = `${title}\n${list.split(',').join(`\n`)}`;
+  if(targetType === 'result') {
+    if(parent === 'matches') {
+      clipboard = `${title}\n${count}\n${list.split(',').join(`\n`)}`;
+    };
+    if(parent === 'commons') {
+      clipboard = list.split(`\n`).map(item => `${title},${item}`).join(`\n`);
+    };
   }
-  if(targetType === 'result-all' || parent === 'commons') {
-    clipboard = list.split(`\n`).map(item => `${title},${item}`).join(`\n`);
+  if(targetType === 'result-all') {
+    if(parent === 'matches') {
+      clipboard = list.split(`\n`).map(item => `${title},${count},${item}`).join(`\n`);
+    };
+    if(parent === 'commons') {
+      clipboard = list.split(`\n`).map(item => `${title},${item}`).join(`\n`);
+    };
   }
+  console.log(clipboard);
   return clipboard;
 }
 
