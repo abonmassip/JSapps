@@ -1,3 +1,5 @@
+// v1.9.0
+
 const settingsEl = document.querySelector('#settings');
 const settingButtons = settingsEl.querySelectorAll('button');
 const inputCount = settingsEl.querySelector('.input_qty');
@@ -127,7 +129,6 @@ function copyResult(element, parent, targetType) {
       clipboard = list.split(`\n`).map(item => `${title},${item}`).join(`\n`);
     };
   }
-  console.log(clipboard);
   return clipboard;
 }
 
