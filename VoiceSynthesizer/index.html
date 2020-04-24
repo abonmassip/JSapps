@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech Synthesizer</title>
+
+  <style>
+    body,
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    body * {
+      margin: 10px;
+    }
+
+    #mytext {
+      width: 80%;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Speech Synthesizer</h1>
+  <form>
+    <textarea name="mytext" id="mytext" cols="30" rows="10"></textarea>
+    <select name="voices" id="voices">
+      <option disabled selected value>Select voice</option>
+    </select>
+    <button id="play">Play</button>
+  </form>
+
+  <script>
+    const textInput = document.querySelector('#mytext');
+    const voicesList = document.querySelector('#voices');
+    const playButton = document.querySelector('#play');
+    let myText = '';
+    let myVoice = '';
+
+    window.speechSynthesis.addEventListener('voiceschanged', () => {
+      const voices = window.speechSynthesis.getVoices();
+      voicesList.innerHTML = '';
+      voices.forEach(voice => {
+        const newItem = document.createElement('option');
+        newItem.value = voice.lang;
+        newItem.textContent = voice.name;
+        voicesList.appendChild(newItem);
+      });
+    });
+
+    const saySomething = () => {
+      window.speechSynthesis.cancel();
+      const speech = new SpeechSynthesisUtterance(myText);
+      speech.voice = window.speechSynthesis.getVoices().find(voice => voice.lang === myVoice);
+      speech.pitch = 1;
+      speech.rate = 1;
+      window.speechSynthesis.speak(speech);
+    };
+
+    textInput.addEventListener('keyup', (e) => myText = e.currentTarget.value);
+    textInput.addEventListener('keydown', (e) => e.key === 'Enter' && e.ctrlKey === true && saySomething());
+    voicesList.addEventListener('change', (e) => myVoice = e.target.value);
+    playButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      saySomething();
+    });
+
+  </script>
+</body>
+
+</html>
