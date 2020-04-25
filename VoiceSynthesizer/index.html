@@ -33,6 +33,14 @@
     <select name="voices" id="voices">
       <option disabled selected value>Select voice</option>
     </select>
+    <div>
+      <input type="range" id="pitch" name="pitch" min="0" max="2" step="1" value="1" />
+      <label for="pitch">Pitch</label>
+    </div>
+    <div>
+      <input type="range" id="rate" name="rate" min="0" max="4" step="1" value="1" />
+      <label for="pitch">Rate</label>
+    </div>
     <button id="play">Play</button>
   </form>
 
@@ -40,8 +48,12 @@
     const textInput = document.querySelector('#mytext');
     const voicesList = document.querySelector('#voices');
     const playButton = document.querySelector('#play');
+    const pitchRange = document.querySelector('#pitch');
+    const rateRange = document.querySelector('#rate');
     let myText = '';
-    let myVoice = '';
+    let myVoice = 'en-US';
+    let myPitch = 1;
+    let myRate = 1;
 
     window.speechSynthesis.addEventListener('voiceschanged', () => {
       const voices = window.speechSynthesis.getVoices();
@@ -58,8 +70,8 @@
       window.speechSynthesis.cancel();
       const speech = new SpeechSynthesisUtterance(myText);
       speech.voice = window.speechSynthesis.getVoices().find(voice => voice.lang === myVoice);
-      speech.pitch = 1;
-      speech.rate = 1;
+      speech.pitch = myPitch;
+      speech.rate = myRate;
       window.speechSynthesis.speak(speech);
     };
 
@@ -70,6 +82,8 @@
       e.preventDefault();
       saySomething();
     });
+    pitchRange.addEventListener('change', (e) => myPitch = parseInt(e.currentTarget.value));
+    rateRange.addEventListener('change', (e) => myRate = parseInt(e.currentTarget.value));
 
   </script>
 </body>
